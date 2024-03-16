@@ -17,18 +17,18 @@
 
 package at.pcgamingfreaks.MarriageMaster.Bukkit.Database;
 
+import at.pcgamingfreaks.Bukkit.PaperLib.ScheduleHandler;
 import at.pcgamingfreaks.ConsoleColor;
 import at.pcgamingfreaks.Database.ConnectionProvider.ConnectionProvider;
 import at.pcgamingfreaks.MarriageMaster.Bukkit.MarriageMaster;
 import at.pcgamingfreaks.MarriageMaster.Bukkit.SpecialInfoWorker.DbErrorLoadingDataInfo;
 import at.pcgamingfreaks.MarriageMaster.Database.IPlatformSpecific;
 import at.pcgamingfreaks.Message.MessageColor;
-
-import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.Date;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -63,11 +63,11 @@ public class PlatformSpecific implements IPlatformSpecific<MarriagePlayerData, M
 	{
 		if(delay < 1)
 		{
-			Bukkit.getScheduler().runTaskAsynchronously(plugin, runnable);
+			ScheduleHandler.getAsyncScheduler().run(runnable);
 		}
 		else
 		{
-			Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, runnable, delay);
+			ScheduleHandler.getAsyncScheduler().runDelayed(runnable, Duration.ofMillis(delay));
 		}
 	}
 

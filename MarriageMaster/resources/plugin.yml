@@ -5,6 +5,7 @@ description: "${project.description}"
 main: "${bukkitMainClass}"
 version: "${version}"
 api-version: "1.13"
+folia-supported: true
 depend: [${dependencies}]
 softdepend: [ Vault, Minepacks, MinePacks, MVdWPlaceholderAPI, PlaceholderAPI, SkillAPI, mcMMO, Multiverse-Core ${soft-dependencies} ]
 

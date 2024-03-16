@@ -17,6 +17,7 @@
 
 package at.pcgamingfreaks.MarriageMaster.Bukkit.Listener;
 
+import at.pcgamingfreaks.Bukkit.PaperLib.ScheduleHandler;
 import at.pcgamingfreaks.MarriageMaster.Bukkit.API.DelayableTeleportAction;
 import at.pcgamingfreaks.MarriageMaster.Bukkit.API.Marriage;
 import at.pcgamingfreaks.MarriageMaster.Bukkit.API.MarriagePlayer;
@@ -24,7 +25,9 @@ import at.pcgamingfreaks.MarriageMaster.Bukkit.Commands.HomeCommand;
 import at.pcgamingfreaks.MarriageMaster.Bukkit.Commands.TpCommand;
 import at.pcgamingfreaks.MarriageMaster.Bukkit.MarriageMaster;
 import at.pcgamingfreaks.MarriageMaster.Database.PluginChannelCommunicatorBase;
-
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -34,10 +37,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;
-
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -198,7 +197,7 @@ public class PluginChannelCommunicator extends PluginChannelCommunicatorBase imp
 	{
 		if(!serverNameUpdated)
 		{
-			plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+			ScheduleHandler.getScheduler().runDelayed(() -> {
 				logger.info("Request server name from BungeeCord ...");
 				sendMessage(CHANNEL_BUNGEE_CORD, buildStringMessage("GetServer"));
 			}, 20);
@@ -225,7 +224,7 @@ public class PluginChannelCommunicator extends PluginChannelCommunicatorBase imp
 		}
 		else
 		{
-			Bukkit.getScheduler().runTask(plugin, () -> performSendMessage(channel, data));
+			ScheduleHandler.getScheduler().run(() -> performSendMessage(channel, data));
 		}
 	}
 
